@@ -47,3 +47,7 @@ export const moveToken = (gameState: GameState, dieRoll: number): GameState => {
     message: `You have rolled a ${dieRoll} and moved to square ${newPosition}.`,
   };
 };
+
+export const checkWin = (gameState: GameState): boolean => {
+  return gameState.isWon;
+};
