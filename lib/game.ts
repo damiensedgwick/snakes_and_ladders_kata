@@ -26,8 +26,7 @@ export const moveToken = (gameState: GameState, dieRoll: number): GameState => {
   if (rolledTooHigh) {
     return {
       ...gameState,
-      message:
-        `You have rolled a ${dieRoll}, which is too high. Please try again.`,
+      message: generateErrorMessage(dieRoll),
     };
   }
 
@@ -36,16 +35,27 @@ export const moveToken = (gameState: GameState, dieRoll: number): GameState => {
       ...gameState,
       position: newPosition,
       isWon: true,
-      message:
-        `You have rolled a ${dieRoll} and moved to square ${newPosition}. You have won!`,
+      message: generateWinMessage(dieRoll, newPosition)
     };
   }
 
   return {
     ...gameState,
     position: newPosition,
-    message: `You have rolled a ${dieRoll} and moved to square ${newPosition}.`,
+    message: generateDefaultMessage(dieRoll, newPosition),
   };
+};
+
+const generateWinMessage = (dieRoll: number, newPosition: number) => {
+  return `You have rolled a ${dieRoll} and moved to square ${newPosition}. You have won!`;
+};
+
+const generateErrorMessage = (dieRoll: number) => {
+  return `You have rolled a ${dieRoll}, which is too high. Please try again.`;
+};
+
+const generateDefaultMessage = (dieRoll: number, newPosition: number) => {
+  return `You have rolled a ${dieRoll} and moved to square ${newPosition}.`;
 };
 
 export const checkWin = (gameState: GameState): boolean => {
