@@ -1,6 +1,6 @@
 import { checkWin, initGame, moveToken, rollDie } from "../lib/game.ts";
 
-const BOARD_SIZE: number = 10;
+const BOARD_SIZE: number = 100;
 const POSITION: number = 1;
 
 function main(): void {
