@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.184.0/testing/asserts.ts";
 
-import { GameState, moveToken } from "./game.ts";
+import { GameState, moveToken, rollDie } from "./game.ts";
 
 const createTestGame = (overrides: Partial<GameState>): GameState => {
   return {
@@ -51,4 +51,18 @@ Deno.test("Given the token is on square 97, when the token is moved 3 spaces, th
 
   assertEquals(gameState.position, 100);
   assertEquals(gameState.isWon, true);
+});
+
+Deno.test("Given the game is started, when the player rolls a die, then the result should be 1-6 inclusive", () => {
+  const roll: number = rollDie();
+
+  assertEquals(roll >= 1 && roll <= 6, true);
+});
+
+Deno.test("Given the player rolls a 4, when they move their token, then the token should move 4 spaces", () => {
+  let gameState: GameState = createTestGame({});
+
+  gameState = moveToken(gameState, 4);
+
+  assertEquals(gameState.position, 5);
 });
