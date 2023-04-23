@@ -10,13 +10,13 @@ function main(): void {
     let gameState = initGame(POSITION, BOARD_SIZE);
 
     while (!checkWin(gameState)) {
-      const takeTurn: boolean = confirm(
-        gameState.message + " Do you want to roll the die?",
-      );
+      const takeTurn: boolean = confirm("Do you want to roll the die?");
 
       if (takeTurn) {
         const dieRoll: number = rollDie();
         gameState = moveToken(gameState, dieRoll);
+
+        console.log(gameState.message);
       } else {
         console.log("Thank you for playing!");
         break;
