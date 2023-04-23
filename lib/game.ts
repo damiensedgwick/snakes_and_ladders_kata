@@ -34,6 +34,7 @@ export const moveToken = (gameState: GameState, dieRoll: number): GameState => {
   if (hasWonGame) {
     return {
       ...gameState,
+      position: newPosition,
       isWon: true,
       message:
         `You have rolled a ${dieRoll} and moved to square ${newPosition}. You have won!`,
