@@ -3,13 +3,32 @@ export type GameState = {
   readonly isWon: boolean;
   readonly boardSize: number;
   readonly message: string;
+  readonly snakes: Snake[];
 };
+
+type Snake = {
+  readonly head_position: number;
+  readonly snake_length: number;
+}
+
+export const snakes: Snake[] = [
+  {
+    head_position: 12,
+    snake_length: 10
+  },
+  {
+    head_position: 27,
+    snake_length: 10
+  },
+];
+
 
 export const initGame = (position: number, boardSize: number): GameState => {
   return {
     position,
     isWon: false,
     boardSize,
+    snakes,
     message: "Welcome to Snakes and Ladders!",
   };
 };
@@ -22,6 +41,15 @@ export const moveToken = (gameState: GameState, dieRoll: number): GameState => {
   const newPosition: number = gameState.position + dieRoll;
   const rolledTooHigh: boolean = newPosition > gameState.boardSize;
   const hasWonGame: boolean = newPosition === gameState.boardSize;
+  const snake = gameState.snakes.find(snake => snake.head_position === newPosition);
+
+  if (snake) {
+    return {
+      ...gameState,
+      position: newPosition - snake.snake_length,
+      message: generateErrorMessage(dieRoll),
+    }
+  }
 
   if (rolledTooHigh) {
     return {
@@ -61,3 +89,6 @@ const generateDefaultMessage = (dieRoll: number, newPosition: number) => {
 export const checkWin = (gameState: GameState): boolean => {
   return gameState.isWon;
 };
+
+
+
